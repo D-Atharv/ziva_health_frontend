@@ -4,7 +4,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 
 export const metadata: Metadata = {
   title: "EventManager",
-  description: "Event Management System",
+  description: "Manage and join events effortlessly",
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-background text-foreground">
+      <body>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

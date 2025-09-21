@@ -1,79 +1,42 @@
-// "use client";
-
-// import { useAuth } from "@/hooks/useAuth";
-// import { useEffect, useState } from "react";
-// import Link from "next/link";
-// import { Button } from "@/components/ui/button";
-
-// export default function HomePage() {
-//   const { user, loading } = useAuth();
-// const [mounted, setMounted] = useState(false);
-
-// useEffect(() => setMounted(true), []);
-
-// if (!mounted || loading)
-//   return <p className="text-center mt-10">Loading...</p>;
-
-//   return (
-//     <div className="flex flex-col items-center justify-center h-screen space-y-6">
-//       <h1 className="text-3xl font-bold">
-//         {user ? `Welcome ${user.name}` : "Welcome Guest"}
-//       </h1>
-//       <div className="flex gap-4">
-//         {!user ? (
-//           <>
-//             <Link href="/login">
-//               <Button>Login</Button>
-//             </Link>
-//             <Link href="/register">
-//               <Button variant="secondary">Register</Button>
-//             </Link>
-//           </>
-//         ) : (
-//           <p className="text-green-500">You are logged in 🎉</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
 "use client";
 
-import Link from "next/link";
-import { useAuth } from "@/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useRef } from "react";
+import { FloatingDots } from "@/components/landing/FloatingDots";
+import { Hero } from "@/components/landing/Hero";
+import { FeaturesSection } from "@/components/landing/FeatureSection";
+import { HowItWorksSection } from "@/components/landing/HowItWorksSection";
+import { TimelineSection } from "@/components/landing/TimelineSection";
+import { CTASection } from "@/components/landing/CTASection";
 
-export default function HomePage() {
-  const { user, loading, logout } = useAuth();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
-
-  if (!mounted || loading)
-    return <p className="text-center mt-10">Loading...</p>;
+export default function LandingPage() {
+  const containerRef = useRef<HTMLDivElement>(null!);
+  const sections = ["Hero", "Features", "How It Works", "Timeline", "Join"];
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen space-y-6">
-      <h1 className="text-3xl font-bold">
-        {user ? `Welcome ${user.name}` : "Welcome Guest"}
-      </h1>
-      <div className="flex gap-4">
-        {!user ? (
-          <>
-            <Link href="/login">
-              <Button>Login</Button>
-            </Link>
-            <Link href="/register">
-              <Button variant="secondary">Register</Button>
-            </Link>
-          </>
-        ) : (
-          <Button variant="destructive" onClick={logout}>
-            Logout
-          </Button>
-        )}
+    <>
+      <div className="relative w-screen h-screen bg-black text-green-400 font-mono overflow-hidden">
+        <FloatingDots sections={sections} containerRef={containerRef} />
+
+        <div
+          ref={containerRef}
+          className="flex flex-col md:flex-row w-full h-full overflow-y-auto md:overflow-x-auto md:overflow-y-hidden snap-x snap-mandatory scroll-smooth"
+        >
+          <Hero />
+          <FeaturesSection />
+          <HowItWorksSection />
+          <TimelineSection />
+          <CTASection />
+        </div>
+
+        <div className="absolute inset-0 pointer-events-none grid grid-cols-20 grid-rows-20 gap-[1px]">
+          {Array.from({ length: 400 }).map((_, i) => (
+            <div
+              key={i}
+              className="bg-green-900/10 border border-green-800/20 animate-pulse"
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

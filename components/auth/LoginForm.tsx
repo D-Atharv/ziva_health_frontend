@@ -29,7 +29,7 @@ export default function LoginForm() {
         body: JSON.stringify({ email, password }),
       });
       await refreshUser();
-      router.push("/");
+      router.push("/events");
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
     } finally {

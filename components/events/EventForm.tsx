@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Label } from "@radix-ui/react-label";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useEvents } from "@/hooks/useEvents";
 
 export function EventForm() {
   const [title, setTitle] = useState("");
@@ -16,6 +17,8 @@ export function EventForm() {
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
+
+  const { fetchEvents } = useEvents();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,6 +35,7 @@ export function EventForm() {
           maxCapacity,
         }),
       });
+      await fetchEvents();
       router.push("/events");
     } catch (err: unknown) {
       if (err instanceof Error) {
