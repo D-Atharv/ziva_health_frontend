@@ -2,14 +2,13 @@
 
 import { useState } from "react";
 import { Event } from "@/types/types";
-import { Button } from "../ui/button";
 import { useEvents } from "@/hooks/useEvents";
 
 interface Props {
   event: Event;
   userId: number;
-  availableSpots: number; 
-  onChange?: (registered: boolean) => void; 
+  availableSpots: number;
+  onChange?: (registered: boolean) => void;
 }
 
 export function RegistrationButton({
@@ -29,7 +28,7 @@ export function RegistrationButton({
     try {
       await register(event.id);
       setIsRegistered(true);
-      onChange?.(true); 
+      onChange?.(true);
     } catch (err) {
       console.error(err);
     } finally {
@@ -42,7 +41,7 @@ export function RegistrationButton({
     try {
       await cancel(event.id);
       setIsRegistered(false);
-      onChange?.(false); 
+      onChange?.(false);
     } catch (err) {
       console.error(err);
     } finally {
@@ -50,13 +49,25 @@ export function RegistrationButton({
     }
   };
 
-  return isRegistered ? (
-    <Button variant="destructive" onClick={handleCancel} disabled={loading}>
-      Cancel
-    </Button>
-  ) : (
-    <Button onClick={handleRegister} disabled={loading || availableSpots <= 0}>
-      Register
-    </Button>
+  const buttonText = loading
+    ? isRegistered
+      ? "Cancelling..."
+      : "Registering..."
+    : isRegistered
+    ? "[ Cancel Registration ]"
+    : "[ Register ]";
+
+  return (
+    <button
+      onClick={isRegistered ? handleCancel : handleRegister}
+      disabled={loading || (!isRegistered && availableSpots <= 0)}
+      className={`text-lg font-mono px-3 py-1 rounded transition-all ${
+        isRegistered
+          ? "text-red-400 hover:text-red-300 hover:bg-red-900/40"
+          : "text-cyan-400 hover:text-cyan-300 hover:bg-cyan-900/40"
+      } disabled:opacity-40 disabled:cursor-not-allowed`}
+    >
+      {buttonText}
+    </button>
   );
 }

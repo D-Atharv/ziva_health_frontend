@@ -19,7 +19,7 @@ export default function LandingPage() {
 
         <div
           ref={containerRef}
-          className="flex flex-col md:flex-row w-full h-full overflow-y-auto md:overflow-x-auto md:overflow-y-hidden snap-x snap-mandatory scroll-smooth"
+          className="flex flex-col md:flex-row w-full h-full overflow-y-auto md:overflow-x-auto md:overflow-y-hidden snap-x snap-mandatory scroll-smooth scrollbar-thin scrollbar-thumb-green-500 scrollbar-track-black"
         >
           <Hero />
           <FeaturesSection />

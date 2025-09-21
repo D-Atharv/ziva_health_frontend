@@ -3,8 +3,11 @@ import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
 
 export const metadata: Metadata = {
-  title: "EventManager",
+  title: "EventHub",
   description: "Manage and join events effortlessly",
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({

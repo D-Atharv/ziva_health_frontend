@@ -155,3 +155,30 @@
   background-size: 200% 200%;
   animation: text 8s ease infinite;
 }
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+  border-left: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ff88, #00cc44);
+  border-radius: 10px;
+  box-shadow: 0 0 10px #00ff88, 0 0 20px #00cc44;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00ffaa, #00e676);
+  box-shadow: 0 0 15px #00ffaa, 0 0 30px #00e676;
+}
+
+/* Firefox support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #00ff88 #000;
+}
